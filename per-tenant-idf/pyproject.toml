@@ -1,0 +1,33 @@
+[project]
+name = "per-tenant-idf-bench"
+version = "0.1.0"
+description = "Does Qdrant 1.19 per-tenant IDF reproduce a dedicated BM25 collection? A full-scale benchmark on BEIR CQADupStack - 12 StackExchange forums sharing one sparse collection (457k docs)."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+keywords = [
+    "qdrant",
+    "vector-search",
+    "bm25",
+    "sparse-vectors",
+    "idf",
+    "multitenancy",
+    "beir",
+    "information-retrieval",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Topic :: Database",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "datasets>=5.0.1",
+    "numpy>=2.5.2",
+    "pandas>=3.0.5",
+    "qdrant-client[fastembed]>=1.19.0",
+    "scipy>=1.18.0",
+    "xy>=0.0.6",
+]

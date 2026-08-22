@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.venv/
+
+# Large / non-versioned data (downloaded corpus, live Qdrant volume, embedding cache)
+data/*
+qdrant_storage/
+artifacts/doc_embeddings.pkl
