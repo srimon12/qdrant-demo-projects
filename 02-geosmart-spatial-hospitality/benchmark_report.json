@@ -1,0 +1,612 @@
+{
+  "ladder": {
+    "M1_dense": {
+      "latency_p50_ms": 2.27,
+      "latency_p95_ms": 3.55,
+      "avg_distance_m": 4631.0,
+      "avg_budget_error_eur": 70.7,
+      "superhost_ratio": 0.42,
+      "avg_rating": 4.01
+    },
+    "M2_hard_filter": {
+      "latency_p50_ms": 2.54,
+      "latency_p95_ms": 3.85,
+      "avg_distance_m": 1013.0,
+      "avg_budget_error_eur": 57.7,
+      "superhost_ratio": 0.44,
+      "avg_rating": 4.11
+    },
+    "M3_decay": {
+      "latency_p50_ms": 8.11,
+      "latency_p95_ms": 9.34,
+      "avg_distance_m": 1945.0,
+      "avg_budget_error_eur": 34.0,
+      "superhost_ratio": 0.72,
+      "avg_rating": 4.82
+    },
+    "M4_viewport_facet": {
+      "latency_p50_ms": 6.81,
+      "latency_p95_ms": 9.34,
+      "avg_distance_m": 1068.0,
+      "avg_budget_error_eur": 14.7,
+      "superhost_ratio": 0.94,
+      "avg_rating": 4.85
+    }
+  },
+  "boundary_loss": {
+    "avg_dropout_fraction": 0.3712,
+    "avg_near_miss": 114.2
+  },
+  "queries": [
+    {
+      "id": "GEO-01",
+      "persona": "Solo Remote Worker in Mitte",
+      "district": "Alexanderplatz",
+      "budget": 155,
+      "hard_radius_m": 1500,
+      "boundary_loss": {
+        "hits": 369.0,
+        "near_miss": 223.0,
+        "dropout_fraction": 0.3766891891891892,
+        "corpus_share": 0.04141132776230269,
+        "radius_m": 1500,
+        "max_price": 170.5
+      },
+      "hard_cliff": {
+        "n": 5,
+        "dist": 1086.6021844136471,
+        "berr": 56.24400000000001,
+        "sh": 0.8,
+        "rating": 3.9099999999999993
+      },
+      "modes": {
+        "M1_dense": {
+          "n": 5,
+          "dist": 3452.6837440979143,
+          "berr": 30.910000000000004,
+          "sh": 0.6,
+          "rating": 3.746,
+          "last_latency_ms": 2.21
+        },
+        "M2_hard_filter": {
+          "n": 5,
+          "dist": 1086.6021844136471,
+          "berr": 56.24400000000001,
+          "sh": 0.8,
+          "rating": 3.9099999999999993,
+          "last_latency_ms": 3.19
+        },
+        "M3_decay": {
+          "n": 5,
+          "dist": 1733.034105709966,
+          "berr": 48.010000000000005,
+          "sh": 1.0,
+          "rating": 4.906000000000001,
+          "last_latency_ms": 8.77
+        },
+        "M4_viewport_facet": {
+          "n": 5,
+          "dist": 1015.2905093584064,
+          "berr": 12.032000000000005,
+          "sh": 1.0,
+          "rating": 4.84,
+          "last_latency_ms": 7.71
+        }
+      }
+    },
+    {
+      "id": "GEO-02",
+      "persona": "Family Vacation in Tiergarten",
+      "district": "Tiergarten S\u00fcd",
+      "budget": 155,
+      "hard_radius_m": 1350,
+      "boundary_loss": {
+        "hits": 73.0,
+        "near_miss": 122.0,
+        "dropout_fraction": 0.6256410256410256,
+        "corpus_share": 0.02265552460538533,
+        "radius_m": 1350,
+        "max_price": 170.5
+      },
+      "hard_cliff": {
+        "n": 5,
+        "dist": 1276.8875319757954,
+        "berr": 109.92,
+        "sh": 0.2,
+        "rating": 1.786
+      },
+      "modes": {
+        "M1_dense": {
+          "n": 5,
+          "dist": 3469.3809601060266,
+          "berr": 108.526,
+          "sh": 0.2,
+          "rating": 2.9579999999999997,
+          "last_latency_ms": 2.11
+        },
+        "M2_hard_filter": {
+          "n": 5,
+          "dist": 1276.8875319757954,
+          "berr": 109.92,
+          "sh": 0.2,
+          "rating": 1.786,
+          "last_latency_ms": 2.31
+        },
+        "M3_decay": {
+          "n": 5,
+          "dist": 4241.388457857376,
+          "berr": 18.633999999999997,
+          "sh": 0.6,
+          "rating": 4.8,
+          "last_latency_ms": 8.35
+        },
+        "M4_viewport_facet": {
+          "n": 5,
+          "dist": 1421.839750469324,
+          "berr": 18.633999999999997,
+          "sh": 1.0,
+          "rating": 4.74,
+          "last_latency_ms": 6.37
+        }
+      }
+    },
+    {
+      "id": "GEO-03",
+      "persona": "Nightlife & Culture in Kreuzberg",
+      "district": "S\u00fcdliche Friedrichstadt",
+      "budget": 140,
+      "hard_radius_m": 1350,
+      "boundary_loss": {
+        "hits": 212.0,
+        "near_miss": 96.0,
+        "dropout_fraction": 0.3116883116883117,
+        "corpus_share": 0.019688269073010665,
+        "radius_m": 1350,
+        "max_price": 154.0
+      },
+      "hard_cliff": {
+        "n": 5,
+        "dist": 979.1775728768622,
+        "berr": 51.098,
+        "sh": 0.6,
+        "rating": 3.8880000000000003
+      },
+      "modes": {
+        "M1_dense": {
+          "n": 5,
+          "dist": 3837.1739135159637,
+          "berr": 123.628,
+          "sh": 0.8,
+          "rating": 4.878,
+          "last_latency_ms": 2.8
+        },
+        "M2_hard_filter": {
+          "n": 5,
+          "dist": 979.1775728768622,
+          "berr": 51.098,
+          "sh": 0.6,
+          "rating": 3.8880000000000003,
+          "last_latency_ms": 2.16
+        },
+        "M3_decay": {
+          "n": 5,
+          "dist": 1623.9275138499936,
+          "berr": 19.834,
+          "sh": 0.8,
+          "rating": 4.816,
+          "last_latency_ms": 8.02
+        },
+        "M4_viewport_facet": {
+          "n": 5,
+          "dist": 1242.9267355568106,
+          "berr": 16.406000000000002,
+          "sh": 1.0,
+          "rating": 4.914,
+          "last_latency_ms": 6.57
+        }
+      }
+    },
+    {
+      "id": "GEO-04",
+      "persona": "Cultural Tourist near Museum Island",
+      "district": "Brunnenstr. S\u00fcd",
+      "budget": 155,
+      "hard_radius_m": 1350,
+      "boundary_loss": {
+        "hits": 372.0,
+        "near_miss": 128.0,
+        "dropout_fraction": 0.256,
+        "corpus_share": 0.023769730733519033,
+        "radius_m": 1350,
+        "max_price": 170.5
+      },
+      "hard_cliff": {
+        "n": 5,
+        "dist": 812.9242369700527,
+        "berr": 56.638,
+        "sh": 0.6,
+        "rating": 3.8520000000000003
+      },
+      "modes": {
+        "M1_dense": {
+          "n": 5,
+          "dist": 3908.8613709387864,
+          "berr": 47.134,
+          "sh": 0.8,
+          "rating": 4.936,
+          "last_latency_ms": 1.98
+        },
+        "M2_hard_filter": {
+          "n": 5,
+          "dist": 812.9242369700527,
+          "berr": 56.638,
+          "sh": 0.6,
+          "rating": 3.8520000000000003,
+          "last_latency_ms": 2.25
+        },
+        "M3_decay": {
+          "n": 5,
+          "dist": 629.0858525301414,
+          "berr": 72.566,
+          "sh": 1.0,
+          "rating": 4.843999999999999,
+          "last_latency_ms": 8.11
+        },
+        "M4_viewport_facet": {
+          "n": 5,
+          "dist": 830.5162100079722,
+          "berr": 10.700000000000003,
+          "sh": 0.8,
+          "rating": 4.796,
+          "last_latency_ms": 8.13
+        }
+      }
+    },
+    {
+      "id": "GEO-05",
+      "persona": "Transit Commuter near Central Station",
+      "district": "Moabit Ost",
+      "budget": 155,
+      "hard_radius_m": 900,
+      "boundary_loss": {
+        "hits": 68.0,
+        "near_miss": 39.0,
+        "dropout_fraction": 0.3644859813084112,
+        "corpus_share": 0.0072423398328690805,
+        "radius_m": 900,
+        "max_price": 170.5
+      },
+      "hard_cliff": {
+        "n": 5,
+        "dist": 692.8638589985948,
+        "berr": 51.384,
+        "sh": 0.6,
+        "rating": 4.774
+      },
+      "modes": {
+        "M1_dense": {
+          "n": 5,
+          "dist": 3194.9319610164252,
+          "berr": 59.660000000000004,
+          "sh": 0.4,
+          "rating": 4.724,
+          "last_latency_ms": 3.47
+        },
+        "M2_hard_filter": {
+          "n": 5,
+          "dist": 692.8638589985948,
+          "berr": 51.384,
+          "sh": 0.6,
+          "rating": 4.774,
+          "last_latency_ms": 3.05
+        },
+        "M3_decay": {
+          "n": 5,
+          "dist": 646.0368484131479,
+          "berr": 40.733999999999995,
+          "sh": 1.0,
+          "rating": 4.9159999999999995,
+          "last_latency_ms": 7.57
+        },
+        "M4_viewport_facet": {
+          "n": 5,
+          "dist": 499.6413429123384,
+          "berr": 13.6,
+          "sh": 1.0,
+          "rating": 4.9399999999999995,
+          "last_latency_ms": 6.73
+        }
+      }
+    },
+    {
+      "id": "GEO-06",
+      "persona": "Weekend Brunch Couple in Prenzlauer Berg",
+      "district": "Prenzlauer Berg Nordwest",
+      "budget": 155,
+      "hard_radius_m": 1350,
+      "boundary_loss": {
+        "hits": 263.0,
+        "near_miss": 114.0,
+        "dropout_fraction": 0.30238726790450926,
+        "corpus_share": 0.02116991643454039,
+        "radius_m": 1350,
+        "max_price": 170.5
+      },
+      "hard_cliff": {
+        "n": 5,
+        "dist": 1053.705350948822,
+        "berr": 80.098,
+        "sh": 0.4,
+        "rating": 3.808
+      },
+      "modes": {
+        "M1_dense": {
+          "n": 5,
+          "dist": 9313.340289929462,
+          "berr": 78.99600000000001,
+          "sh": 0.0,
+          "rating": 2.6,
+          "last_latency_ms": 2.11
+        },
+        "M2_hard_filter": {
+          "n": 5,
+          "dist": 1053.705350948822,
+          "berr": 80.098,
+          "sh": 0.4,
+          "rating": 3.808,
+          "last_latency_ms": 2.3
+        },
+        "M3_decay": {
+          "n": 5,
+          "dist": 1456.098514679487,
+          "berr": 55.96,
+          "sh": 0.6,
+          "rating": 4.86,
+          "last_latency_ms": 7.74
+        },
+        "M4_viewport_facet": {
+          "n": 5,
+          "dist": 1235.7403920275578,
+          "berr": 20.0,
+          "sh": 1.0,
+          "rating": 4.901999999999999,
+          "last_latency_ms": 6.82
+        }
+      }
+    },
+    {
+      "id": "GEO-07",
+      "persona": "Digital Nomad in Charlottenburg",
+      "district": "Schlo\u00df Charlottenburg",
+      "budget": 120,
+      "hard_radius_m": 1500,
+      "boundary_loss": {
+        "hits": 137.0,
+        "near_miss": 60.0,
+        "dropout_fraction": 0.30456852791878175,
+        "corpus_share": 0.01441268316118184,
+        "radius_m": 1500,
+        "max_price": 132.0
+      },
+      "hard_cliff": {
+        "n": 5,
+        "dist": 1034.5766669217405,
+        "berr": 26.163999999999998,
+        "sh": 0.4,
+        "rating": 4.712
+      },
+      "modes": {
+        "M1_dense": {
+          "n": 5,
+          "dist": 7535.179028936002,
+          "berr": 74.42,
+          "sh": 0.6,
+          "rating": 2.946,
+          "last_latency_ms": 2.21
+        },
+        "M2_hard_filter": {
+          "n": 5,
+          "dist": 1034.5766669217405,
+          "berr": 26.163999999999998,
+          "sh": 0.4,
+          "rating": 4.712,
+          "last_latency_ms": 3.03
+        },
+        "M3_decay": {
+          "n": 5,
+          "dist": 4111.14284505706,
+          "berr": 22.23,
+          "sh": 0.8,
+          "rating": 4.774,
+          "last_latency_ms": 8.2
+        },
+        "M4_viewport_facet": {
+          "n": 5,
+          "dist": 1159.6257101378228,
+          "berr": 11.3,
+          "sh": 0.8,
+          "rating": 4.822,
+          "last_latency_ms": 6.79
+        }
+      }
+    },
+    {
+      "id": "GEO-08",
+      "persona": "Art Lover in Friedrichshain",
+      "district": "Karl-Marx-Allee-Nord",
+      "budget": 140,
+      "hard_radius_m": 1350,
+      "boundary_loss": {
+        "hits": 211.0,
+        "near_miss": 190.0,
+        "dropout_fraction": 0.47381546134663344,
+        "corpus_share": 0.03896636587366694,
+        "radius_m": 1350,
+        "max_price": 154.0
+      },
+      "hard_cliff": {
+        "n": 5,
+        "dist": 1063.2091768496052,
+        "berr": 53.736000000000004,
+        "sh": 0.0,
+        "rating": 4.792
+      },
+      "modes": {
+        "M1_dense": {
+          "n": 5,
+          "dist": 2355.322338666825,
+          "berr": 101.46200000000002,
+          "sh": 0.2,
+          "rating": 3.778,
+          "last_latency_ms": 2.3
+        },
+        "M2_hard_filter": {
+          "n": 5,
+          "dist": 1063.2091768496052,
+          "berr": 53.736000000000004,
+          "sh": 0.0,
+          "rating": 4.792,
+          "last_latency_ms": 2.43
+        },
+        "M3_decay": {
+          "n": 5,
+          "dist": 1396.1492994957619,
+          "berr": 23.2,
+          "sh": 0.6,
+          "rating": 4.684,
+          "last_latency_ms": 7.56
+        },
+        "M4_viewport_facet": {
+          "n": 5,
+          "dist": 1151.203419791141,
+          "berr": 24.534,
+          "sh": 0.8,
+          "rating": 4.832,
+          "last_latency_ms": 6.82
+        }
+      }
+    },
+    {
+      "id": "GEO-09",
+      "persona": "Value Solo Traveler in Neuk\u00f6lln",
+      "district": "Neuk\u00f6llner Mitte/Zentrum",
+      "budget": 115,
+      "hard_radius_m": 1125,
+      "boundary_loss": {
+        "hits": 147.0,
+        "near_miss": 76.0,
+        "dropout_fraction": 0.34080717488789236,
+        "corpus_share": 0.019304038608077216,
+        "radius_m": 1125,
+        "max_price": 126.50000000000001
+      },
+      "hard_cliff": {
+        "n": 5,
+        "dist": 894.4833256602271,
+        "berr": 32.884,
+        "sh": 0.2,
+        "rating": 4.794
+      },
+      "modes": {
+        "M1_dense": {
+          "n": 5,
+          "dist": 5388.150035355187,
+          "berr": 33.524,
+          "sh": 0.2,
+          "rating": 4.838,
+          "last_latency_ms": 2.1
+        },
+        "M2_hard_filter": {
+          "n": 5,
+          "dist": 894.4833256602271,
+          "berr": 32.884,
+          "sh": 0.2,
+          "rating": 4.794,
+          "last_latency_ms": 2.3
+        },
+        "M3_decay": {
+          "n": 5,
+          "dist": 1946.7120269520187,
+          "berr": 20.166,
+          "sh": 0.4,
+          "rating": 4.8260000000000005,
+          "last_latency_ms": 8.25
+        },
+        "M4_viewport_facet": {
+          "n": 5,
+          "dist": 833.9571856609606,
+          "berr": 10.3,
+          "sh": 1.0,
+          "rating": 4.912000000000001,
+          "last_latency_ms": 6.86
+        }
+      }
+    },
+    {
+      "id": "GEO-10",
+      "persona": "Architecture Enthusiast near Reichstag",
+      "district": "Regierungsviertel",
+      "budget": 155,
+      "hard_radius_m": 1350,
+      "boundary_loss": {
+        "hits": 170.0,
+        "near_miss": 94.0,
+        "dropout_fraction": 0.3560606060606061,
+        "corpus_share": 0.01745589600742804,
+        "radius_m": 1350,
+        "max_price": 170.5
+      },
+      "hard_cliff": {
+        "n": 5,
+        "dist": 1232.165321811157,
+        "berr": 58.67999999999999,
+        "sh": 0.6,
+        "rating": 4.766
+      },
+      "modes": {
+        "M1_dense": {
+          "n": 5,
+          "dist": 3852.2934270706623,
+          "berr": 49.172000000000004,
+          "sh": 0.4,
+          "rating": 4.7,
+          "last_latency_ms": 2.27
+        },
+        "M2_hard_filter": {
+          "n": 5,
+          "dist": 1232.165321811157,
+          "berr": 58.67999999999999,
+          "sh": 0.6,
+          "rating": 4.766,
+          "last_latency_ms": 3.08
+        },
+        "M3_decay": {
+          "n": 5,
+          "dist": 1663.218899491661,
+          "berr": 19.133999999999997,
+          "sh": 0.4,
+          "rating": 4.804,
+          "last_latency_ms": 7.82
+        },
+        "M4_viewport_facet": {
+          "n": 5,
+          "dist": 1286.2110845091436,
+          "berr": 9.512,
+          "sh": 1.0,
+          "rating": 4.846,
+          "last_latency_ms": 6.8
+        }
+      }
+    }
+  ],
+  "config": {
+    "repeats": 5,
+    "modes": [
+      "M1_dense",
+      "M2_hard_filter",
+      "M3_decay",
+      "M4_viewport_facet"
+    ],
+    "collection": "geosmart_berlin_stays"
+  }
+}

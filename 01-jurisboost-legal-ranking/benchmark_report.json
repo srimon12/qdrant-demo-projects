@@ -1,0 +1,367 @@
+{
+  "explicit": [
+    {
+      "id": "E1",
+      "note": "438 CrPC -> 482 BNSS (Anticipatory Bail without time limit)",
+      "expects": [
+        "crpc:438",
+        "bnss:482"
+      ],
+      "M1 Dense_top1": true,
+      "M1 Dense_hitk": true,
+      "M2 Hybrid RRF_top1": true,
+      "M2 Hybrid RRF_hitk": true,
+      "M3 Hybrid\u2192Formula_top1": true,
+      "M3 Hybrid\u2192Formula_hitk": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_top1": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_hitk": true
+    },
+    {
+      "id": "E2",
+      "note": "302 IPC -> 103 BNS (Circumstantial Evidence Panchsheel)",
+      "expects": [
+        "ipc:302",
+        "bns:103"
+      ],
+      "M1 Dense_top1": true,
+      "M1 Dense_hitk": true,
+      "M2 Hybrid RRF_top1": true,
+      "M2 Hybrid RRF_hitk": true,
+      "M3 Hybrid\u2192Formula_top1": true,
+      "M3 Hybrid\u2192Formula_hitk": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_top1": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_hitk": true
+    },
+    {
+      "id": "E3",
+      "note": "482 CrPC -> 528 BNSS (Inherent Quashing Powers)",
+      "expects": [
+        "crpc:482",
+        "bnss:528"
+      ],
+      "M1 Dense_top1": false,
+      "M1 Dense_hitk": true,
+      "M2 Hybrid RRF_top1": false,
+      "M2 Hybrid RRF_hitk": true,
+      "M3 Hybrid\u2192Formula_top1": true,
+      "M3 Hybrid\u2192Formula_hitk": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_top1": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_hitk": true
+    },
+    {
+      "id": "E4",
+      "note": "41A CrPC -> 35 BNSS (Mandatory Notice of Appearance)",
+      "expects": [
+        "crpc:41a",
+        "bnss:35",
+        "crpc:41"
+      ],
+      "M1 Dense_top1": false,
+      "M1 Dense_hitk": false,
+      "M2 Hybrid RRF_top1": false,
+      "M2 Hybrid RRF_hitk": false,
+      "M3 Hybrid\u2192Formula_top1": true,
+      "M3 Hybrid\u2192Formula_hitk": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_top1": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_hitk": true
+    },
+    {
+      "id": "E5",
+      "note": "154 CrPC -> 173 BNSS (Mandatory FIR Registration)",
+      "expects": [
+        "crpc:154",
+        "bnss:173"
+      ],
+      "M1 Dense_top1": false,
+      "M1 Dense_hitk": false,
+      "M2 Hybrid RRF_top1": true,
+      "M2 Hybrid RRF_hitk": true,
+      "M3 Hybrid\u2192Formula_top1": true,
+      "M3 Hybrid\u2192Formula_hitk": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_top1": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_hitk": true
+    },
+    {
+      "id": "E6",
+      "note": "498A IPC -> 85 BNS (Matrimonial Cruelty)",
+      "expects": [
+        "ipc:498a",
+        "bns:85"
+      ],
+      "M1 Dense_top1": false,
+      "M1 Dense_hitk": true,
+      "M2 Hybrid RRF_top1": false,
+      "M2 Hybrid RRF_hitk": true,
+      "M3 Hybrid\u2192Formula_top1": true,
+      "M3 Hybrid\u2192Formula_hitk": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_top1": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_hitk": true
+    },
+    {
+      "id": "E7",
+      "note": "302 IPC -> 103 BNS (Rarest of Rare Capital Punishment)",
+      "expects": [
+        "ipc:302",
+        "bns:103"
+      ],
+      "M1 Dense_top1": true,
+      "M1 Dense_hitk": true,
+      "M2 Hybrid RRF_top1": true,
+      "M2 Hybrid RRF_hitk": true,
+      "M3 Hybrid\u2192Formula_top1": true,
+      "M3 Hybrid\u2192Formula_hitk": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_top1": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_hitk": true
+    },
+    {
+      "id": "E8",
+      "note": "27 IEA -> 23(2) BSA (Custody Discovery of Weapon / Fact)",
+      "expects": [
+        "iea:27",
+        "bsa:23(2)",
+        "bsa:23"
+      ],
+      "M1 Dense_top1": false,
+      "M1 Dense_hitk": false,
+      "M2 Hybrid RRF_top1": true,
+      "M2 Hybrid RRF_hitk": true,
+      "M3 Hybrid\u2192Formula_top1": true,
+      "M3 Hybrid\u2192Formula_hitk": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_top1": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_hitk": true
+    }
+  ],
+  "natural_language": [
+    {
+      "id": "N1",
+      "note": "498A - Vague cruelty allegations without specific overt acts",
+      "expects": [
+        "ipc:498a",
+        "bns:85"
+      ],
+      "M1 Dense_top1": false,
+      "M1 Dense_hitk": false,
+      "M2 Hybrid RRF_top1": false,
+      "M2 Hybrid RRF_hitk": true,
+      "M3 Hybrid\u2192Formula_top1": false,
+      "M3 Hybrid\u2192Formula_hitk": false,
+      "M4 RRF\u2192ColBERT\u2192Formula_top1": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_hitk": true
+    },
+    {
+      "id": "N2",
+      "note": "438 - Pre-arrest protection till trial conclusion",
+      "expects": [
+        "crpc:438",
+        "bnss:482"
+      ],
+      "M1 Dense_top1": false,
+      "M1 Dense_hitk": false,
+      "M2 Hybrid RRF_top1": false,
+      "M2 Hybrid RRF_hitk": false,
+      "M3 Hybrid\u2192Formula_top1": false,
+      "M3 Hybrid\u2192Formula_hitk": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_top1": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_hitk": true
+    },
+    {
+      "id": "N3",
+      "note": "482 - Inherent power to quash abuse of court process",
+      "expects": [
+        "crpc:482",
+        "bnss:528"
+      ],
+      "M1 Dense_top1": true,
+      "M1 Dense_hitk": true,
+      "M2 Hybrid RRF_top1": true,
+      "M2 Hybrid RRF_hitk": true,
+      "M3 Hybrid\u2192Formula_top1": false,
+      "M3 Hybrid\u2192Formula_hitk": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_top1": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_hitk": true
+    },
+    {
+      "id": "N4",
+      "note": "302 - Circumstantial evidence chain of events",
+      "expects": [
+        "ipc:302",
+        "bns:103"
+      ],
+      "M1 Dense_top1": true,
+      "M1 Dense_hitk": true,
+      "M2 Hybrid RRF_top1": true,
+      "M2 Hybrid RRF_hitk": true,
+      "M3 Hybrid\u2192Formula_top1": true,
+      "M3 Hybrid\u2192Formula_hitk": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_top1": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_hitk": true
+    },
+    {
+      "id": "N5",
+      "note": "154 - Mandatory FIR on cognizable complaint",
+      "expects": [
+        "crpc:154",
+        "bnss:173"
+      ],
+      "M1 Dense_top1": false,
+      "M1 Dense_hitk": true,
+      "M2 Hybrid RRF_top1": false,
+      "M2 Hybrid RRF_hitk": true,
+      "M3 Hybrid\u2192Formula_top1": false,
+      "M3 Hybrid\u2192Formula_hitk": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_top1": false,
+      "M4 RRF\u2192ColBERT\u2192Formula_hitk": true
+    },
+    {
+      "id": "N6",
+      "note": "420 - Commercial breach cannot be criminalized into cheating",
+      "expects": [
+        "ipc:420",
+        "bns:318"
+      ],
+      "M1 Dense_top1": false,
+      "M1 Dense_hitk": false,
+      "M2 Hybrid RRF_top1": false,
+      "M2 Hybrid RRF_hitk": true,
+      "M3 Hybrid\u2192Formula_top1": false,
+      "M3 Hybrid\u2192Formula_hitk": false,
+      "M4 RRF\u2192ColBERT\u2192Formula_top1": false,
+      "M4 RRF\u2192ColBERT\u2192Formula_hitk": true
+    },
+    {
+      "id": "N7",
+      "note": "300/302 - Sudden fight exception to murder",
+      "expects": [
+        "ipc:302",
+        "bns:103",
+        "ipc:300",
+        "bns:101"
+      ],
+      "M1 Dense_top1": true,
+      "M1 Dense_hitk": true,
+      "M2 Hybrid RRF_top1": true,
+      "M2 Hybrid RRF_hitk": true,
+      "M3 Hybrid\u2192Formula_top1": true,
+      "M3 Hybrid\u2192Formula_hitk": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_top1": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_hitk": true
+    },
+    {
+      "id": "N8",
+      "note": "27 - Custodial disclosure statement weapon recovery",
+      "expects": [
+        "iea:27",
+        "bsa:23(2)",
+        "bsa:23"
+      ],
+      "M1 Dense_top1": false,
+      "M1 Dense_hitk": false,
+      "M2 Hybrid RRF_top1": false,
+      "M2 Hybrid RRF_hitk": true,
+      "M3 Hybrid\u2192Formula_top1": false,
+      "M3 Hybrid\u2192Formula_hitk": false,
+      "M4 RRF\u2192ColBERT\u2192Formula_top1": false,
+      "M4 RRF\u2192ColBERT\u2192Formula_hitk": false
+    }
+  ],
+  "edge": [
+    {
+      "id": "C1",
+      "note": "C1 Pure BNS - no IPC keyword, needs concordance 34\u21923(5) (HARD: M1\u00d7 M4\u2713)",
+      "expects": [
+        "ipc:34",
+        "bns:3(5)"
+      ],
+      "M1 Dense_top1": false,
+      "M1 Dense_hitk": false,
+      "M2 Hybrid RRF_top1": false,
+      "M2 Hybrid RRF_hitk": false,
+      "M3 Hybrid\u2192Formula_top1": true,
+      "M3 Hybrid\u2192Formula_hitk": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_top1": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_hitk": true
+    },
+    {
+      "id": "C2",
+      "note": "C2 Distractor 35 vs 35(3) - near-duplicate, needs prefix (HARD: M1\u00d7 M4\u2713)",
+      "expects": [
+        "crpc:41a",
+        "bnss:35",
+        "bnss:35(3)"
+      ],
+      "M1 Dense_top1": false,
+      "M1 Dense_hitk": false,
+      "M2 Hybrid RRF_top1": false,
+      "M2 Hybrid RRF_hitk": true,
+      "M3 Hybrid\u2192Formula_top1": true,
+      "M3 Hybrid\u2192Formula_hitk": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_top1": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_hitk": true
+    },
+    {
+      "id": "C3",
+      "note": "C3 Pure BNS - 304B\u219280 bridge, small corpus (HARD)",
+      "expects": [
+        "ipc:304b",
+        "bns:80"
+      ],
+      "M1 Dense_top1": false,
+      "M1 Dense_hitk": true,
+      "M2 Hybrid RRF_top1": false,
+      "M2 Hybrid RRF_hitk": true,
+      "M3 Hybrid\u2192Formula_top1": true,
+      "M3 Hybrid\u2192Formula_hitk": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_top1": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_hitk": true
+    },
+    {
+      "id": "C4",
+      "note": "C4 Pure BSA - 113A\u2192117 sparse, tests MAX_SIM token (HARD)",
+      "expects": [
+        "iea:113a",
+        "bsa:117"
+      ],
+      "M1 Dense_top1": false,
+      "M1 Dense_hitk": true,
+      "M2 Hybrid RRF_top1": true,
+      "M2 Hybrid RRF_hitk": true,
+      "M3 Hybrid\u2192Formula_top1": true,
+      "M3 Hybrid\u2192Formula_hitk": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_top1": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_hitk": true
+    },
+    {
+      "id": "C5",
+      "note": "C5 Pure BNS theft - 303 vs 379 bridge (HARD)",
+      "expects": [
+        "ipc:379",
+        "bns:303(2)",
+        "bns:303"
+      ],
+      "M1 Dense_top1": false,
+      "M1 Dense_hitk": false,
+      "M2 Hybrid RRF_top1": false,
+      "M2 Hybrid RRF_hitk": false,
+      "M3 Hybrid\u2192Formula_top1": true,
+      "M3 Hybrid\u2192Formula_hitk": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_top1": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_hitk": true
+    },
+    {
+      "id": "C6",
+      "note": "C6 Negation trap - false 'must not' (true: must) (HARD: M1\u00d7 M4\u2713)",
+      "expects": [
+        "crpc:154",
+        "bnss:173"
+      ],
+      "M1 Dense_top1": true,
+      "M1 Dense_hitk": true,
+      "M2 Hybrid RRF_top1": true,
+      "M2 Hybrid RRF_hitk": true,
+      "M3 Hybrid\u2192Formula_top1": true,
+      "M3 Hybrid\u2192Formula_hitk": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_top1": true,
+      "M4 RRF\u2192ColBERT\u2192Formula_hitk": true
+    }
+  ]
+}

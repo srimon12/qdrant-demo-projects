@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeoSmart - Qdrant 1.19 Spatial & Continuous Decay Engine</title>
+  
+  <!-- Fonts: Geist & Geist Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Leaflet CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  
+  <!-- Alpine.js (Lightweight Reactive UI, Zero Build) -->
+  <script defer src="https://unpkg.com/alpinejs@3.14.8/dist/cdn.min.js"></script>
+  
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body x-data="geoSmart()" x-cloak>
+
+  <!-- Ambient Glow Backdrop (Ethereal Glass Mesh) -->
+  <div class="ambient-glow glow-emerald"></div>
+  <div class="ambient-glow glow-sapphire"></div>
+
+  <!-- FLOATING ISLAND TOPBAR -->
+  <header class="topbar-shell">
+    <div class="topbar-core">
+      <!-- Brand & Engine Tag -->
+      <div class="brand-group">
+        <div class="logo-mark">
+          <div class="logo-dot" :class="{ 'pulse': isSearching }"></div>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">GeoSmart</span>
+          <span class="engine-badge">Qdrant 1.19 Spatial</span>
+        </div>
+      </div>
+
+      <!-- Mode Selector Pills -->
+      <div class="mode-island">
+        <button class="mode-tab" :class="{ 'active': mode === 'viewport' }" @click="setMode('viewport')">
+          <span class="tab-icon">🗺️</span>
+          <span>Viewport & Facets</span>
+        </button>
+        <button class="mode-tab" :class="{ 'active': mode === 'decay' }" @click="setMode('decay')">
+          <span class="tab-icon">⭕</span>
+          <span>Cliff vs. Decay</span>
+        </button>
+        <button class="mode-tab" :class="{ 'active': mode === 'polygon' }" @click="setMode('polygon')">
+          <span class="tab-icon">📐</span>
+          <span>Polygon Pushdown</span>
+        </button>
+        <button class="mode-tab" :class="{ 'active': mode === 'grouped' }" @click="setMode('grouped')">
+          <span class="tab-icon">🏘️</span>
+          <span>Grouped Diversity</span>
+        </button>
+      </div>
+
+      <!-- Real-Time Telemetry Deck -->
+      <div class="telemetry-island">
+        <div class="tele-item">
+          <span class="tele-label">QDRANT</span>
+          <span class="tele-val highlight-emerald" x-text="timing.qdrant_ms + ' ms'">0.0 ms</span>
+        </div>
+        <div class="tele-divider"></div>
+        <div class="tele-item">
+          <span class="tele-label">EMBED</span>
+          <span class="tele-val" x-text="timing.embed_ms + ' ms'">0.0 ms</span>
+        </div>
+        <div class="tele-divider"></div>
+        <div class="tele-item">
+          <span class="tele-label">TOTAL</span>
+          <span class="tele-val highlight-blue" x-text="timing.total_ms + ' ms'">0.0 ms</span>
+        </div>
+        <div class="tele-divider"></div>
+        <div class="tele-item">
+          <span class="tele-label">MATCHES</span>
+          <span class="tele-val" x-text="hits.length + ' / 8,317'">20 / 8,317</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WORKSPACE -->
+  <main class="workspace">
+    
+    <!-- LEFT: LEAFLET MAP VIEWPORT -->
+    <section class="map-viewport">
+      <div id="map"></div>
+
+      <!-- Floating Map Legend & Interaction Helper -->
+      <div class="map-floating-overlay">
+        <div class="legend-pill" x-show="mode === 'viewport'">
+          <span class="dot dot-emerald"></span>
+          <span>Formula Ranked Hits</span>
+          <span class="dot dot-blue ml-2"></span>
+          <span>In-DB Aggregations</span>
+        </div>
+        <div class="legend-pill" x-show="mode === 'decay'">
+          <span class="dot dot-emerald"></span>
+          <span>Inside hard circle</span>
+          <span class="dot ml-2" style="background:#f59e0b;"></span>
+          <span>Recovered past the cliff</span>
+          <span class="dot dot-red ml-2"></span>
+          <span>Hard cutoff</span>
+        </div>
+        <div class="legend-pill" x-show="mode === 'polygon'">
+          <span class="dot dot-blue"></span>
+          <span x-text="polygonPresetName + ' (' + polygonVertexCount + ' Vertices)'">Alexanderplatz (387 Vertices)</span>
+        </div>
+        <div class="legend-pill" x-show="mode === 'grouped'">
+          <span class="dot dot-emerald"></span>
+          <span>One Best per District</span>
+          <span class="dot dot-blue ml-2"></span>
+          <span>query_points_groups</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT: INTELLIGENT TELEMETRY SIDEBAR -->
+    <aside class="sidebar-shell">
+      <div class="sidebar-core">
+        
+        <!-- SEARCH & QUERY SECTION -->
+        <div class="query-box">
+          <div class="input-bezel">
+            <span class="search-glyph">⚡</span>
+            <input 
+              type="text" 
+              class="query-input" 
+              placeholder="Search stay vibe e.g. quiet sunny loft near cafes..." 
+              x-model.debounce.200ms="query" 
+              @input="onSearchInput"
+            >
+            <span class="live-pulse-chip" x-show="isSearching" x-transition>Searching...</span>
+          </div>
+
+          <!-- Preset Pills -->
+          <div class="preset-scroll">
+            <button class="preset-btn" @click="setPreset('cozy artist loft near cafes and galleries')">🎨 Artist Loft</button>
+            <button class="preset-btn" @click="setPreset('quiet sunny flat with workspace and fast wifi')">💼 Nomad Work</button>
+            <button class="preset-btn" @click="setPreset('luxury designer penthouse with skyline view')">✨ Luxury Penthouse</button>
+            <button class="preset-btn" @click="setPreset('budget private room near central station')">🚆 Transit Value</button>
+          </div>
+        </div>
+
+        <!-- MODE 3: POLYGON SELECTOR PRESETS -->
+        <div class="polygon-selector-box" x-show="mode === 'polygon'" x-transition>
+          <div class="box-header">
+            <span class="box-title">Administrative Boundary Pushdown (Qdrant GeoPolygon)</span>
+          </div>
+          <div class="district-pill-grid">
+            <template x-for="p in polygonPresets" :key="p.key">
+              <button 
+                class="district-pill" 
+                :class="{ 'active': activePolygonKey === p.key }" 
+                @click="selectPolygonPreset(p.key)"
+              >
+                <span x-text="p.label"></span>
+                <span class="vert-badge" x-text="p.vertices + ' pts'"></span>
+              </button>
+            </template>
+          </div>
+        </div>
+
+        <!-- GROUPED DIVERSITY PRESETS -->
+        <div class="polygon-selector-box" x-show="mode === 'grouped'" x-transition>
+          <div class="box-header">
+            <span class="box-title">Grouped Diversity (Qdrant query_points_groups by neighbourhood_group)</span>
+          </div>
+          <p style="font-size: 12px; color: var(--text-secondary); margin: 8px 0;">One curated stay per district - avoids Mitte homogeneity (1,982 stays). Uses hybrid DBSF + Formula decay grouped.</p>
+        </div>
+
+        <!-- CONTROLS & FORMULA TUNER -->
+        <div class="controls-panel" x-show="mode !== 'polygon'">
+          <div class="control-row">
+            <div class="slider-group">
+              <div class="slider-header">
+                <span class="slider-title">Target Budget</span>
+                <span class="slider-val" x-text="'€' + targetBudget">€95</span>
+              </div>
+              <input type="range" min="30" max="300" step="5" x-model="targetBudget" @input="onSliderChange">
+            </div>
+
+            <div class="slider-group">
+              <div class="slider-header">
+                <span class="slider-title">Spatial Scale</span>
+                <span class="slider-val" x-text="(distScale / 1000).toFixed(1) + ' km'">2.0 km</span>
+              </div>
+              <input type="range" min="500" max="5000" step="250" x-model="distScale" @input="onSliderChange">
+            </div>
+          </div>
+
+          <!-- Formula Weights Drawer Trigger -->
+          <div class="formula-tuner-bar">
+            <button class="formula-toggle-btn" @click="showFormulaTuner = !showFormulaTuner">
+              <span class="toggle-icon">⚙️</span>
+              <span>FormulaQuery Weights (Geo, Price, Vibe, Rating)</span>
+              <span class="chevron" :class="{ 'open': showFormulaTuner }">▼</span>
+            </button>
+          </div>
+
+          <!-- Expandable Formula Weights Drawer -->
+          <div class="formula-drawer" x-show="showFormulaTuner" x-transition>
+            <div class="weights-grid">
+              <div class="weight-control">
+                <span class="weight-label">Geo Decay ($1.2\times$)</span>
+                <input type="range" min="0" max="3" step="0.1" x-model="weights.geo" @input="onSliderChange">
+              </div>
+              <div class="weight-control">
+                <span class="weight-label">Price Decay ($0.8\times$)</span>
+                <input type="range" min="0" max="3" step="0.1" x-model="weights.budget" @input="onSliderChange">
+              </div>
+              <div class="weight-control">
+                <span class="weight-label">Semantic DBSF ($0.8\times$)</span>
+                <input type="range" min="0" max="3" step="0.1" x-model="weights.semantic" @input="onSliderChange">
+              </div>
+              <div class="weight-control">
+                <span class="weight-label">Rating Boost ($0.5\times$)</span>
+                <input type="range" min="0" max="2" step="0.1" x-model="weights.rating" @input="onSliderChange">
+              </div>
+              <div class="weight-control">
+                <span class="weight-label">Superhost ($0.25\times$)</span>
+                <input type="range" min="0" max="1" step="0.05" x-model="weights.superhost" @input="onSliderChange">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LIVE IN-DB FACETS (MODE 1 ONLY) -->
+        <div class="facets-card" x-show="mode === 'viewport'" x-transition>
+          <div class="box-header">
+            <span class="box-title">Qdrant In-DB Facets (<code class="code-tag">client.facet</code>)</span>
+            <span class="tele-tag" x-text="timing.qdrant_ms + ' ms'">0.0 ms</span>
+          </div>
+          <div class="facet-chips-wrap">
+            <template x-for="d in districtFacets" :key="d.name">
+              <div class="facet-pill">
+                <span class="pill-name" x-text="d.name"></span>
+                <span class="pill-count" x-text="d.count"></span>
+              </div>
+            </template>
+            <template x-for="r in roomFacets" :key="r.room_type">
+              <div class="facet-pill pill-emerald">
+                <span class="pill-name" x-text="r.room_type"></span>
+                <span class="pill-count" x-text="r.count"></span>
+              </div>
+            </template>
+          </div>
+        </div>
+
+        <!-- BOUNDARY CLIFF PROOF (MODE 2 ONLY) -->
+        <div class="cliff-card" x-show="mode === 'decay' && boundaryAnalysis" x-transition>
+          <div class="cliff-card-head">
+            <div class="cliff-title-wrap">
+              <span class="alert-icon">⚠️</span>
+              <span class="cliff-title">BOUNDARY CLIFF PROOF (DuckDB Geodesy)</span>
+            </div>
+            <span class="cliff-stat-badge" x-text="boundaryAnalysis ? (boundaryAnalysis.near_miss + ' Stays Dropped (' + (boundaryAnalysis.dropout_fraction * 100).toFixed(1) + '%)') : ''">126 Stays Dropped (4.0%)</span>
+          </div>
+          <p class="cliff-desc">
+            Binary circle cutoff ($r \le <span x-text="boundaryAnalysis ? (boundaryAnalysis.radius_m / 1000).toFixed(2) : '1.50'"></span>\text{km}$) eliminates high-rating listings right on the perimeter. <strong style="color: var(--brand);">GaussDecay</strong> smoothly grades all stays with <strong style="color: var(--brand);">0.0% boundary loss</strong>.
+          </p>
+        </div>
+
+        <!-- RANKED STAYS RESULTS DECK -->
+        <div class="results-deck" id="results-deck">
+          <template x-if="error">
+            <div class="empty-state">
+              <span class="empty-icon">⚠️</span>
+              <p x-text="error">Search failed.</p>
+            </div>
+          </template>
+
+          <template x-if="hits.length === 0 && !isSearching && !error">
+            <div class="empty-state">
+              <span class="empty-icon">📍</span>
+              <p>No listings match the current criteria.</p>
+            </div>
+          </template>
+
+          <template x-for="(hit, idx) in hits" :key="hit.id">
+            <div 
+              class="double-bezel-card" 
+              :id="'card-stay-' + hit.id"
+              :class="{ 'active': selectedStayId === hit.id }"
+              @click="selectStay(hit)"
+            >
+              <div class="card-inner">
+                <!-- Top Row: Name + Match Score -->
+                <div class="card-head">
+                  <span class="stay-title" x-text="'#' + (idx + 1) + ' ' + hit.name"></span>
+                  <div class="score-badge-wrap">
+                    <span class="score-pill" x-text="getMatchPct(hit.score) + '% Match'">85% Match</span>
+                    <span class="score-pts" x-text="hit.score.toFixed(2) + ' pts'">3.15 pts</span>
+                  </div>
+                </div>
+
+                <!-- Meta Row: Price, Rating, Room, Superhost -->
+                <div class="card-meta">
+                  <span class="meta-tag price-tag" x-text="'€' + Math.round(hit.price) + '/nt'">€95/nt</span>
+                  <span class="meta-tag rating-tag">
+                    <span style="color: #fbbf24;">★</span>
+                    <span x-text="hit.rating.toFixed(2) + ' (' + hit.number_of_reviews + ')'">4.85 (120)</span>
+                  </span>
+                  <span class="meta-tag" x-text="hit.room_type">Entire home/apt</span>
+                  <template x-if="hit.is_superhost">
+                    <span class="meta-tag superhost-tag">★ Superhost</span>
+                  </template>
+                  <template x-if="mode === 'decay' && hardHits.length && !hardHits.some(h => h.id === hit.id)">
+                    <span class="meta-tag" style="color:#f59e0b;">Recovered past cliff</span>
+                  </template>
+                </div>
+
+                <!-- Bottom Row: Neighbourhood + Coordinates -->
+                <div class="card-foot">
+                  <span class="stay-suburb" x-text="hit.neighbourhood + ', ' + hit.neighbourhood_group">Alexanderplatz, Mitte</span>
+                  <span class="stay-coords" x-text="hit.lat.toFixed(4) + ', ' + hit.lon.toFixed(4)">52.5200, 13.4050</span>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+
+      </div>
+    </aside>
+
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
