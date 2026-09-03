@@ -214,4 +214,4 @@ uv run python main.py --ui
 
 ## 7. Credits
 
-Demonstrates **Qdrant 1.19** geospatial scoring: `FormulaQuery` with `GaussDecay` / `ExpDecay` / `GeoDistance`, `GeoPolygon` + `GeoBoundingBox`, `client.facet`, `query_points_groups`, and memory tiers (`PINNED` / `CACHED`). Enrichment and ellipsoidal verification use **DuckDB Spatial** (`ST_Contains`, `ST_Distance_Spheroid`, `h3_latlng_to_cell`). Listing snapshot from [Inside Airbnb](http://insideairbnb.com/get-the-data/).
+Demonstrates **Qdrant 1.19** geospatial scoring: `FormulaQuery` with `GaussDecay` / `ExpDecay` / `GeoDistance` (see Qdrant's [Score-Boosting Reranker (1.14)](https://qdrant.tech/blog/qdrant-1.14.x/#score-boosting-reranker)), `GeoPolygon` + `GeoBoundingBox`, `client.facet`, `query_points_groups`, and memory tiers (`PINNED` / `CACHED`). Enrichment and ellipsoidal verification use **DuckDB Spatial** (`ST_Contains`, `ST_Distance_Spheroid`, `h3_latlng_to_cell`). Listing snapshot from [Inside Airbnb](http://insideairbnb.com/get-the-data/).

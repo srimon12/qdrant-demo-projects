@@ -5,7 +5,7 @@
 [![FastEmbed](https://img.shields.io/badge/FastEmbed-BGE+ColBERT-b34c35.svg)](https://github.com/qdrant/fastembed)
 [![License: MIT](https://img.shields.io/badge/License-MIT-e8e6dc.svg)](../LICENSE)
 
-A tutorial demo of **Qdrant 1.19** on real Supreme Court of India data (**NyayaRAG**: 4,960 source judgments → 9,337 cited precedents after DuckDB dedup → **2,034** criminal-filtered points). Each ladder mode is a **single `client.query_points` round-trip**. No external reranker.
+A tutorial demo of **Qdrant 1.19** on real Supreme Court of India data (**NyayaRAG**: 4,960 source judgments → 9,337 cited precedents after DuckDB dedup → **2,034** criminal-filtered points). Each ladder mode is a **single `client.query_points` round-trip** using Qdrant's native [**Score-Boosting Reranker**](https://qdrant.tech/blog/qdrant-1.14.x/#score-boosting-reranker) (`FormulaQuery`). No external reranker.
 
 > **19/22 Top-1 (86.4%) · 21/22 Recall@3 (95.5%)**. Dense alone is 7/22. Ladder: Hybrid RRF, then Formula, then ColBERT.
 
@@ -29,6 +29,17 @@ A tutorial demo of **Qdrant 1.19** on real Supreme Court of India data (**NyayaR
 ---
 
 ## 2. Query pipeline - `prefetch: Hybrid RRF → ColBERT → Formula`
+
+JurisBoost implements Qdrant's canonical [**Score-Boosting Reranker**](https://qdrant.tech/blog/qdrant-1.14.x/#score-boosting-reranker) (introduced in Qdrant 1.14): blending vector similarity with domain business rules through a server-side `FormulaQuery` rescoring step on top of standard prefetch:
+
+$$\text{score} = \$score + \text{business\_rules}$$
+
+Where the companion demo [`02-geosmart-spatial-hospitality`](../02-geosmart-spatial-hospitality/) implements the post's **Idea 3** (*Geographical Proximity via `GaussDecay(GeoDistance)`*), **JurisBoost** implements **Idea 2** (*Reranking Most Recent Results via `ExpDecay(judgment_date)`*) combined with citation network authority and Indian statutory concordance crosswalk rules:
+
+1. **Semantic & Lexical Base (`$score`)**: Dense BQ + BM25 candidate prefetch fused with RRF, rescored by ColBERT MAX_SIM late interaction.
+2. **Idea 2: Temporal Recency Exponential Decay (`ExpDecay`)**: 20-year half-life on `judgment_date` ensuring recent authoritative precedents rise above stale or overruled decisions.
+3. **Citation Graph Authority**: $\log_{10}(\text{source\_case\_count} + 1)$ scaling in-degree precedents across the Supreme Court corpus.
+4. **Statutory Concordance Rules**: Direct statute matches (`+0.25 × domain` on `legal_references`) and 2024 Bharatiya Sanhita crosswalk bridges (`+0.50 × domain` on `mapped_references`, e.g., CrPC 438 ↔ BNSS 482).
 
 This is the real M4 call (see `src/qdrant_ops.py` → `search_universal_pipeline` + `build_statutory_formula_query`). M1–M3 are prefixes of the same stack:
 
@@ -117,7 +128,7 @@ client.query_points(
 |---|---|---|
 | **M1 Dense BQ** | Baseline semantic | Fast, and wrong on new-code / citation queries |
 | **M2 Hybrid RRF** | + BM25, fused with RRF at the **top-level query** (canonical hybrid - not a second RRF wrap) | Section numbers become first-class |
-| **M3 Hybrid → Formula** | Same RRF prefetch, then the **same** `FormulaQuery` M4 uses (`domain=6.0`) | Recency, citation authority, IPC↔BNS concordance |
+| **M3 Hybrid → Formula** | Same RRF prefetch, then the **same** `FormulaQuery` M4 uses (`domain=6.0`) | **Score-Boosting Reranker (1.14)**: Recency ExpDecay, citation authority, IPC↔BNS concordance |
 | **M4 RRF → ColBERT → Formula** | ColBERT MAX_SIM on the top-40, then that same formula | Recovers paraphrased / natural-language queries |
 
 > **RRF, not DBSF.** Rank fusion is the default when BM25 and cosine are incomparable. `k=2`, equal weights. Sweeping `k` or BM25-heavy weights lifts M2 but not M4 - ColBERT + Formula already compensate. See §6.
@@ -229,7 +240,9 @@ First index embeds 2,034 precedents with BGE + ColBERT - a minute or so on GPU, 
 
 ## 8. Credits
 
-Builds on **Akshay Kumar Sharma's** work:
+Built on **Qdrant** native features: multi-vector late-interaction reranking, Binary Quantization, the [Score-Boosting Reranker (1.14)](https://qdrant.tech/blog/qdrant-1.14.x/#score-boosting-reranker) via `FormulaQuery`, `client.facet`, and `query_points_groups`. The retrieval method is **ColBERT** late interaction (Khattab et al., 2020; ColBERTv2, Santhanam et al., 2022).
+
+The pipeline shape was inspired by **Akshay Kumar Sharma's** tutorial:
 
 * [How Qdrant Reduced RAG Token Costs by 67% with Native ColBERT Reranking](https://pub.towardsai.net/how-qdrant-reduced-rag-token-costs-by-67-with-native-colbert-reranking-98b4b4d4d553)
 * [Base repo: Cappybara12/legal-rag](https://github.com/Cappybara12/legal-rag)
